@@ -22,8 +22,7 @@ jobs:
         run: pip install pytest pytest-cov pytest_mock paho-mqtt git+https://github.com/wirenboard/umodbus@master git+https://github.com/wirenboard/paho-socket@master git+https://github.com/wirenboard/wb-common@master git+https://github.com/wirenboard/python-mqtt-rpc@main git+https://github.com/wirenboard/json-rpc@master ./
 
       - name: Run tests
-        run: coverage run -m pytest
-        run: coverage xml
+        run: coverage run -m pytest && coverage xml
 
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5

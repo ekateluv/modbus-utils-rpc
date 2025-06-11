@@ -1,0 +1,31 @@
+name: Coveralls
+
+on: 
+  push
+
+jobs:
+  test:
+    name: Run tests and collect coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install pytest pytest-cov pytest_mock paho-mqtt git+https://github.com/wirenboard/umodbus@master git+https://github.com/wirenboard/paho-socket@master git+https://github.com/wirenboard/wb-common@master git+https://github.com/wirenboard/python-mqtt-rpc@main git+https://github.com/wirenboard/json-rpc@master ./
+
+      - name: Run tests
+        run: coverage run -m pytest && coverage xml
+
+      - name: Upload results to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          format: cobertura
+          file: coverage.xml

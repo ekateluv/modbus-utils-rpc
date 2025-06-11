@@ -1,4 +1,4 @@
-name: Run tests and upload coverage
+name: Codecov
 
 on: 
   push
@@ -24,7 +24,8 @@ jobs:
       - name: Run tests
         run: coverage run -m pytest && coverage xml
 
-      - name: Upload results to Codecov
-        uses: codecov/codecov-action@v5
+      - name: Upload results to Coveralls
+        uses: coverallsapp/github-action@v2
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          format: cobertura
+          file: coverage.xml

@@ -1,7 +1,6 @@
 name: Coveralls
 
-on: 
-  push
+on: ["push", "pull_request"]
 
 jobs:
   test:
@@ -26,6 +25,3 @@ jobs:
 
       - name: Upload results to Coveralls
         uses: coverallsapp/github-action@v2
-        with:
-          format: cobertura
-          file: coverage.xml

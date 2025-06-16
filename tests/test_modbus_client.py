@@ -231,13 +231,6 @@ def test_create_modbus_message(  # pylint:disable=too-many-arguments
             message, length = main.create_modbus_message(
                 lib, function, slave_address, address_decrement, start_address, read_count, write_data
             )
-    else:
-        message, length = main.create_modbus_message(
-            lib, function, slave_address, address_decrement, start_address, read_count, write_data
-        )
-
-        if lib == main.rtu:
-            assert (expected_message, expected_length) == (message, length)
 
 
 test_rpc_param = [

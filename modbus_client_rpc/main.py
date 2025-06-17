@@ -292,7 +292,7 @@ def parse_options(argv=sys.argv):
         "-m",
         help="Mode",
         type=str,
-        choices=["tcp", "rtu"],
+        choices=["tcp", "rtu", "monkey"],
         dest="mode",
         required=True,
     )
@@ -429,6 +429,10 @@ def parse_options(argv=sys.argv):
     return options, error_options
 
 
+def monkey_function():
+    return "monkey business"
+
+
 def main(argv=sys.argv):
 
     options, error_options = parse_options(argv[1:])
@@ -454,6 +458,9 @@ def main(argv=sys.argv):
             options.parity_port = 502
         get_port_params = get_tcp_params
         lib = tcp
+    elif options.mode == "monkey":
+        monkey_function()
+        return ResultCode.OK
     else:
         if options.parity_port is None:
             options.parity_port = "none"

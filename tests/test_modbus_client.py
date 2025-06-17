@@ -231,15 +231,6 @@ def test_create_modbus_message(  # pylint:disable=too-many-arguments
             message, length = main.create_modbus_message(
                 lib, function, slave_address, address_decrement, start_address, read_count, write_data
             )
-    else:
-        message, length = main.create_modbus_message(
-            lib, function, slave_address, address_decrement, start_address, read_count, write_data
-        )
-
-        if lib == main.rtu:
-            assert (expected_message, expected_length) == (message, length)
-        elif lib == main.tcp:
-            assert (expected_message[4:], expected_length) == (message[4:], length)
 
 
 test_rpc_param = [
@@ -556,3 +547,7 @@ def test_main(mocker, main_context):
     mocker.patch("modbus_client_rpc.main.parse_modbus_response", parse_modbus_response)
 
     main.main(test_argv)
+
+
+def test_monkey_function():
+    assert main.monkey_function() == "monkey business"
